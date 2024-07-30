@@ -58,7 +58,7 @@ namespace RealTimeDashboard.API
         {
             Random random = new Random();
             float lowerBound = 5;
-            float upperBound = 10;
+            float upperBound = 100;
             float randomFloat = (float)random.NextDouble();
             float randomNumber = lowerBound + (randomFloat * (upperBound - lowerBound));
 

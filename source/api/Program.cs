@@ -65,8 +65,10 @@ app.Map("/ws/total-sales", async context =>
             () => 
             {
                 var totalSales = salesService.GetTotalSales();
-                string message = $"Current amount of total sales is {totalSales}";
-                return message;
+                var utcUpdatedTime = DateTime.UtcNow;
+                var response = new { totalSales, utcUpdatedTime };
+                string jsonString = JsonSerializer.Serialize(response);
+                return jsonString;
             },
             updateFrequencySettings.TotalSales);
     }

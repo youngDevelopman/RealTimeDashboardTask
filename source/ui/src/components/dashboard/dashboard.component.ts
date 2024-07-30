@@ -3,11 +3,12 @@ import { Subscription } from 'rxjs';
 import { webSocketService } from '../../services/web-socket-service';
 import { CommonModule } from '@angular/common';
 import { ActiveUsersChartComponent } from '../active-users-chart/active-users-chart.component';
+import { TotalSalesChartComponent } from "../total-sales-chart/total-sales-chart.component";
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, ActiveUsersChartComponent],
+  imports: [CommonModule, ActiveUsersChartComponent, TotalSalesChartComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
@@ -20,6 +21,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private topSellingProductsSubscription: Subscription;
 
   @ViewChild(ActiveUsersChartComponent) chartComponent: ActiveUsersChartComponent;
+  @ViewChild(TotalSalesChartComponent) totalSalesChartComponent: TotalSalesChartComponent;
 
   constructor(private wsService: webSocketService) {}
 
@@ -29,7 +31,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       err => console.error(err)
     );
     this.totalSalesSubscription = this.wsService.getTotalSales().subscribe(
-      data => this.totalSales = data,
+      data => this.totalSalesChartComponent.updateTotalSalesChart(data),
       err => console.error(err)
     );
     this.topSellingProductsSubscription = this.wsService.getTopSellingProducts().subscribe(

@@ -1,28 +1,28 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import Chart from 'chart.js/auto';
 import 'chartjs-adapter-moment';
 
 @Component({
-  selector: 'app-active-users-chart',
+  selector: 'app-total-sales-chart',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './active-users-chart.component.html',
-  styleUrl: './active-users-chart.component.css'
+  templateUrl: './total-sales-chart.component.html',
+  styleUrl: './total-sales-chart.component.css'
 })
-export class ActiveUsersChartComponent implements OnInit {
-  lastUpdatedInfo: { activeUsers: number, utcUpdatedTimestamp: string };
+export class TotalSalesChartComponent {
+  lastUpdatedInfo: { totalSales: number, utcUpdatedTimestamp: string };
   title = 'ng-chart';
   chart: any;
  
   ngOnInit(): void {
-    this.chart = new Chart('active-users-chart', 
+    this.chart = new Chart('total-sales-chart', 
     {
       type: 'line',
       data: {
         labels: [], // Initial labels (timestamps)
         datasets: [{
-          label: 'Active Users',
+          label: 'Total sales',
           data: [], // Initial data points
           borderColor: 'rgba(75, 192, 192, 1)',
           borderWidth: 2,
@@ -45,9 +45,9 @@ export class ActiveUsersChartComponent implements OnInit {
     });
   }
 
-  updateActiveUsersChart(data: string): void {
+  updateTotalSalesChart(data: string): void {
     const json = JSON.parse(data);
-    const activeUsers = json.activeUsers;
+    const activeUsers = json.totalSales;
     const time = json.utcUpdatedTime;
 
     this.chart.data.labels.push(time);
