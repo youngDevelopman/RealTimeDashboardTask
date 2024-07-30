@@ -1,12 +1,7 @@
 <!-- src/app/components/dashboard/dashboard.component.html -->
-<div>
+<div class="container">
     <app-active-users-chart></app-active-users-chart>
-    <app-total-sales-chart></app-total-sales-chart>
     <app-top-selling-products></app-top-selling-products>
-    <h3>Total Sales</h3>
-    <p>{{ totalSales }}</p>
-  
-    <h3>Top Selling Products</h3>
-    <pre>{{ topSellingProducts | json }}</pre>
+    <app-total-sales-chart></app-total-sales-chart>
 </div>
   
