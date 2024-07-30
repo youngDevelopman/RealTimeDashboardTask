@@ -4,11 +4,12 @@ import { webSocketService } from '../../services/web-socket-service';
 import { CommonModule } from '@angular/common';
 import { ActiveUsersChartComponent } from '../active-users-chart/active-users-chart.component';
 import { TotalSalesChartComponent } from "../total-sales-chart/total-sales-chart.component";
+import { TopSellingProductsComponent } from "../top-selling-products/top-selling-products.component";
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, ActiveUsersChartComponent, TotalSalesChartComponent],
+  imports: [CommonModule, ActiveUsersChartComponent, TotalSalesChartComponent, TopSellingProductsComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
@@ -22,6 +23,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   @ViewChild(ActiveUsersChartComponent) chartComponent: ActiveUsersChartComponent;
   @ViewChild(TotalSalesChartComponent) totalSalesChartComponent: TotalSalesChartComponent;
+  @ViewChild(TopSellingProductsComponent) topSellingProductsChartComponent: TopSellingProductsComponent;
 
   constructor(private wsService: webSocketService) {}
 
@@ -35,7 +37,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       err => console.error(err)
     );
     this.topSellingProductsSubscription = this.wsService.getTopSellingProducts().subscribe(
-      data => this.topSellingProducts = JSON.parse(data),
+      data => this.topSellingProductsChartComponent.updateTopSellingProductsChart(data),
       err => console.error(err)
     );
   }

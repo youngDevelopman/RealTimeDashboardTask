@@ -47,11 +47,11 @@ export class TotalSalesChartComponent {
 
   updateTotalSalesChart(data: string): void {
     const json = JSON.parse(data);
-    const activeUsers = json.totalSales;
+    const totalSales = json.totalSales;
     const time = json.utcUpdatedTime;
 
     this.chart.data.labels.push(time);
-    this.chart.data.datasets[0].data.push(activeUsers);
+    this.chart.data.datasets[0].data.push(totalSales);
 
     this.chart.update();
 

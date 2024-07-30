@@ -78,7 +78,7 @@ namespace RealTimeDashboard.API
             Parallel.ForEach(topSellingsProducts, product =>
             {
                 Random random = threadLocalRandom.Value;
-                float randomFiguresToAdd = (float)(random.NextDouble() * 1000);
+                float randomFiguresToAdd = (float)(random.NextDouble() * 10000);
                 product.Sales += randomFiguresToAdd;
 
                 _logger.LogInformation($"{product.Name} total sales number has been updated to {product.Sales}");
