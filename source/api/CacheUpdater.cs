@@ -45,6 +45,10 @@ namespace RealTimeDashboard.API
 
             var currentActiveUsers = _memoryCache.Get<int>(Constants.ACTIVE_USERS_AMOUNT_CACHE_KEY);
             currentActiveUsers += randomNumber;
+            if(currentActiveUsers < 0)
+            {
+                currentActiveUsers = 0;
+            }
             _memoryCache.Set(Constants.ACTIVE_USERS_AMOUNT_CACHE_KEY, currentActiveUsers);
 
             _logger.LogInformation($"Active user amount has been updated to {currentActiveUsers}");
