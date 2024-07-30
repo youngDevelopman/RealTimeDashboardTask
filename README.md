@@ -31,6 +31,10 @@ Develop a real-time analytics dashboard for a fictional e-commerce platform. The
 - WebSockets
 - ChartJs
 - xUnit
+  
+## How to run
+Open powershell and run `.\BuildAndRun.ps1` script
+
 ## Working example of UI
 ![image](https://github.com/user-attachments/assets/b1223dc8-a70a-4195-9f60-8ba5da338dcf)
 
