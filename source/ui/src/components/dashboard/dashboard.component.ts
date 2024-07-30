@@ -1,17 +1,17 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { webSocketService } from '../../services/web-socket-service';
 import { CommonModule } from '@angular/common';
+import { ActiveUsersChartComponent } from '../active-users-chart/active-users-chart.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ActiveUsersChartComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent implements OnInit, OnDestroy {
-  activeUsers: string;
   totalSales: string;
   topSellingProducts: any;
 
@@ -19,12 +19,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private totalSalesSubscription: Subscription;
   private topSellingProductsSubscription: Subscription;
 
-  constructor(private wsService: webSocketService) {}
+  @ViewChild(ActiveUsersChartComponent) chartComponent: ActiveUsersChartComponent;
 
+  constructor(private wsService: webSocketService) {}
 
   ngOnInit(): void {
     this.activeUsersSubscription = this.wsService.getActiveUsers().subscribe(
-      data => this.activeUsers = data,
+      data => { this.chartComponent.updateActiveUsersChart(data) },
       err => console.error(err)
     );
     this.totalSalesSubscription = this.wsService.getTotalSales().subscribe(
@@ -39,5 +40,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.activeUsersSubscription.unsubscribe();
+    this.totalSalesSubscription.unsubscribe();
+    this.topSellingProductsSubscription.unsubscribe();
   }
 }

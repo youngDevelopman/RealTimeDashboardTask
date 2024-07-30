@@ -40,8 +40,10 @@ app.Map("/ws/active-users", async context =>
             () =>
             {
                 var activeUsers = userService.GetAmountOfActiveUsers();
-                string message = $"Current amount of active users is {activeUsers}";
-                return message;
+                var utcUpdatedTime = DateTime.UtcNow;
+                var response = new { activeUsers, utcUpdatedTime };
+                string jsonString = JsonSerializer.Serialize(response);
+                return jsonString;
             },
             updateFrequencySettings.ActiveUsers);
     }
