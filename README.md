@@ -38,3 +38,7 @@ Develop a real-time analytics dashboard for a fictional e-commerce platform. The
 
 ![image](https://github.com/user-attachments/assets/759c8a9b-681a-40ba-96b8-b2e1f6e6138c)
 
+## High-level architecture
+![image](https://github.com/user-attachments/assets/cf51e235-49b9-4f6a-b542-447625c28edc)
+
+
