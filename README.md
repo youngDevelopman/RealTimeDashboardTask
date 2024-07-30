@@ -31,3 +31,10 @@ Develop a real-time analytics dashboard for a fictional e-commerce platform. The
 - WebSockets
 - ChartJs
 - xUnit
+## Working example of UI
+![image](https://github.com/user-attachments/assets/b1223dc8-a70a-4195-9f60-8ba5da338dcf)
+
+![image](https://github.com/user-attachments/assets/571b73e3-8afe-4ba9-b5c7-8e636da6d144)
+
+![image](https://github.com/user-attachments/assets/759c8a9b-681a-40ba-96b8-b2e1f6e6138c)
+
