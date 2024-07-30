@@ -28,16 +28,11 @@ app.Map("/ws/active-users", async context =>
         var userService = context.RequestServices.GetRequiredService<IUserService>();
         await StartSending(
             ws,
-            async () =>
+            () =>
             {
                 var activeUsers = userService.GetAmountOfActiveUsers();
                 string message = $"Current amount of active users is {activeUsers}";
-                var bytes = Encoding.UTF8.GetBytes(message);
-                var arraySegment = new ArraySegment<byte>(bytes, 0, bytes.Length);
-                await ws.SendAsync(arraySegment,
-                                    WebSocketMessageType.Text,
-                                    true,
-                                    CancellationToken.None);
+                return message;
             },
             2000);
     }
@@ -55,16 +50,11 @@ app.Map("/ws/total-sales", async context =>
         var salesService = context.RequestServices.GetRequiredService<ISalesService>();
         await StartSending(
             ws, 
-            async () => 
+            () => 
             {
                 var totalSales = salesService.GetTotalSales();
                 string message = $"Current amount of total sales is {totalSales}";
-                var bytes = Encoding.UTF8.GetBytes(message);
-                var arraySegment = new ArraySegment<byte>(bytes, 0, bytes.Length);
-                await ws.SendAsync(arraySegment,
-                                    WebSocketMessageType.Text,
-                                    true,
-                                    CancellationToken.None);
+                return message;
             }, 
             2000);
     }
@@ -82,16 +72,11 @@ app.Map("/ws/top-selling-products", async context =>
         var salesService = context.RequestServices.GetRequiredService<ISalesService>();
         await StartSending(
             ws,
-            async () =>
+            () =>
             {
                 var topSellingProducts = salesService.GetTopSellingProducts();
                 string jsonString = JsonSerializer.Serialize(topSellingProducts, new JsonSerializerOptions { WriteIndented = true });
-                var bytes = Encoding.UTF8.GetBytes(jsonString);
-                var arraySegment = new ArraySegment<byte>(bytes, 0, bytes.Length);
-                await ws.SendAsync(arraySegment,
-                                    WebSocketMessageType.Text,
-                                    true,
-                                    CancellationToken.None);
+                return jsonString;
             },
             2000);
     }
@@ -102,13 +87,19 @@ app.Map("/ws/top-selling-products", async context =>
 });
 
 // Runs handler delegate in specified updatePeriod. On each iteration checks whether web socket is opened
-async Task StartSending(WebSocket ws, Action handler, int updatePeriod)
+async Task StartSending(WebSocket ws, Func<string> handler, int updatePeriod)
 {
     while (true)
     {
         if (ws.State == WebSocketState.Open)
         {
-            handler();
+            string message = handler();
+            var bytes = Encoding.UTF8.GetBytes(message);
+            var arraySegment = new ArraySegment<byte>(bytes, 0, bytes.Length);
+            await ws.SendAsync(arraySegment,
+                                WebSocketMessageType.Text,
+                                true,
+                                CancellationToken.None);
         }
         else if (ws.State == WebSocketState.Closed || ws.State == WebSocketState.Aborted)
         {
