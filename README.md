@@ -36,13 +36,17 @@ Develop a real-time analytics dashboard for a fictional e-commerce platform. The
 Open powershell and run `.\BuildAndRun.ps1` script
 
 ## Working example of UI
-![image](https://github.com/user-attachments/assets/b1223dc8-a70a-4195-9f60-8ba5da338dcf)
+![image](https://github.com/user-attachments/assets/51c69d5c-487b-4ad7-8b38-420a68f01a85)
 
-![image](https://github.com/user-attachments/assets/571b73e3-8afe-4ba9-b5c7-8e636da6d144)
 
-![image](https://github.com/user-attachments/assets/759c8a9b-681a-40ba-96b8-b2e1f6e6138c)
+![image](https://github.com/user-attachments/assets/d56aa686-e6f5-4741-9d77-0768c1e0d399)
+
+
+![image](https://github.com/user-attachments/assets/c968a368-af21-4bd4-aebb-441e4cb0bce9)
+
 
 ## High-level architecture
-![image](https://github.com/user-attachments/assets/cf51e235-49b9-4f6a-b542-447625c28edc)
+![image](https://github.com/user-attachments/assets/662bcc6b-b60b-475f-b53e-e2d5d83e3f7c)
+
 
 
