@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Server.IISIntegration;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Hosting;
 using RealTimeDashboard.API;
@@ -12,6 +13,7 @@ builder.WebHost.UseUrls("http://localhost:6969");
 builder.Services.AddMemoryCache();
 builder.Services.AddHostedService<CacheUpdater>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ISalesService, SalesService>();
 var app = builder.Build();
 
 app.UseWebSockets();
@@ -23,9 +25,9 @@ app.Map("/ws/active-users", async context =>
         using var ws = await context.WebSockets.AcceptWebSocketAsync();
         var cache = context.RequestServices.GetRequiredService<IMemoryCache>();
         var userService = context.RequestServices.GetRequiredService<IUserService>();
-        while (true)
-        {
-            if(ws.State == WebSocketState.Open)
+        await StartSending(
+            ws,
+            async () =>
             {
                 var activeUsers = userService.GetAmountOfActiveUsers();
                 string message = $"Current amount of active users is {activeUsers}";
@@ -35,13 +37,8 @@ app.Map("/ws/active-users", async context =>
                                     WebSocketMessageType.Text,
                                     true,
                                     CancellationToken.None);
-            }
-            else if(ws.State == WebSocketState.Closed || ws.State == WebSocketState.Aborted)
-            {
-                break;
-            }
-            await Task.Delay(5000);
-        }
+            },
+            2000);
     }
     else
     {
@@ -49,5 +46,48 @@ app.Map("/ws/active-users", async context =>
     }
 });
 
+app.Map("/ws/total-sales", async context =>
+{
+    if (context.WebSockets.IsWebSocketRequest)
+    {
+        using var ws = await context.WebSockets.AcceptWebSocketAsync();
+        var salesService = context.RequestServices.GetRequiredService<ISalesService>();
+        await StartSending(
+            ws, 
+            async () => 
+            {
+                var totalSales = salesService.GetTotalSales();
+                string message = $"Current amount of total sales is {totalSales}";
+                var bytes = Encoding.UTF8.GetBytes(message);
+                var arraySegment = new ArraySegment<byte>(bytes, 0, bytes.Length);
+                await ws.SendAsync(arraySegment,
+                                    WebSocketMessageType.Text,
+                                    true,
+                                    CancellationToken.None);
+            }, 
+            2000);
+    }
+    else
+    {
+        context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+    }
+});
+
+// Runs handler delegate in specified updatePeriod. On each iteration checks whether web socket is opened
+async Task StartSending(WebSocket ws, Action handler, int updatePeriod)
+{
+    while (true)
+    {
+        if (ws.State == WebSocketState.Open)
+        {
+            handler();
+        }
+        else if (ws.State == WebSocketState.Closed || ws.State == WebSocketState.Aborted)
+        {
+            break;
+        }
+        await Task.Delay(updatePeriod);
+    }
+}
 
 app.Run();
