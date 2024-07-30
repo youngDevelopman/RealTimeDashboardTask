@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
+using RealTimeDashboard.API.Models;
 using RealTimeDashboard.API.Services.Interfaces;
 
 namespace RealTimeDashboard.API.Services
@@ -15,6 +16,12 @@ namespace RealTimeDashboard.API.Services
         {
             var totalSales = _memoryCache.Get<float>(Constants.TOTAL_SALES_AMOUNT_CACHE_KEY);
             return totalSales;
+        }
+
+        public List<SellingProduct> GetTopSellingProducts()
+        {
+            var topSellingProduct = _memoryCache.Get<List<SellingProduct>>(Constants.TOP_SELLING_PRODUCTS_CACHE_KEY);
+            return topSellingProduct;
         }
     }
 }

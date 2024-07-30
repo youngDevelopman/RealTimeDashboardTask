@@ -7,6 +7,7 @@ using RealTimeDashboard.API.Services.Interfaces;
 using System.Net;
 using System.Net.WebSockets;
 using System.Text;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.WebHost.UseUrls("http://localhost:6969");
@@ -65,6 +66,33 @@ app.Map("/ws/total-sales", async context =>
                                     true,
                                     CancellationToken.None);
             }, 
+            2000);
+    }
+    else
+    {
+        context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+    }
+});
+
+app.Map("/ws/top-selling-products", async context =>
+{
+    if (context.WebSockets.IsWebSocketRequest)
+    {
+        using var ws = await context.WebSockets.AcceptWebSocketAsync();
+        var salesService = context.RequestServices.GetRequiredService<ISalesService>();
+        await StartSending(
+            ws,
+            async () =>
+            {
+                var topSellingProducts = salesService.GetTopSellingProducts();
+                string jsonString = JsonSerializer.Serialize(topSellingProducts, new JsonSerializerOptions { WriteIndented = true });
+                var bytes = Encoding.UTF8.GetBytes(jsonString);
+                var arraySegment = new ArraySegment<byte>(bytes, 0, bytes.Length);
+                await ws.SendAsync(arraySegment,
+                                    WebSocketMessageType.Text,
+                                    true,
+                                    CancellationToken.None);
+            },
             2000);
     }
     else

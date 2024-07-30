@@ -1,0 +1,52 @@
+[
+  {
+    "Id": "b3c8096d-49f0-43ab-b4b1-4327ea2ff91a",
+    "Name": "Apple iPhone 13",
+    "Sales": 560000.50
+  },
+  {
+    "Id": "0fba0d74-4128-47f6-b1e3-fb7b13af93d4",
+    "Name": "Samsung Galaxy S21",
+    "Sales": 450000.75
+  },
+  {
+    "Id": "e6d0c2e1-7072-4bb2-8985-4b3c429f12e8",
+    "Name": "Sony WH-1000XM4 Headphones",
+    "Sales": 120000.00
+  },
+  {
+    "Id": "5b7f8a64-4c3b-46db-8a7d-fdf2ebf7b7a9",
+    "Name": "Dell XPS 13 Laptop",
+    "Sales": 250000.25
+  },
+  {
+    "Id": "d4b2bbf8-78d8-4568-9953-1f0910c3a4f5",
+    "Name": "Nintendo Switch",
+    "Sales": 310000.00
+  },
+  {
+    "Id": "7fd6fef2-6056-4ebc-8b0a-6e0d5f842d3e",
+    "Name": "Google Pixel 6",
+    "Sales": 340000.10
+  },
+  {
+    "Id": "bc7d2c1a-418f-4c5c-805e-c3b8f9e8e4f7",
+    "Name": "Amazon Echo Dot",
+    "Sales": 170000.80
+  },
+  {
+    "Id": "9a2e8a9c-3429-4a2b-8429-95e8a2e94c3d",
+    "Name": "Microsoft Surface Pro 7",
+    "Sales": 220000.50
+  },
+  {
+    "Id": "4c3a5e7b-8251-4b1c-a4c6-0f1b6e1d9c6f",
+    "Name": "Bose QuietComfort 35 II",
+    "Sales": 150000.30
+  },
+  {
+    "Id": "6e5f2d8f-8e2a-4b7f-9b1f-7d8c6e2b7a5c",
+    "Name": "PlayStation 5",
+    "Sales": 500000.00
+  }
+]
