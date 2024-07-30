@@ -125,3 +125,6 @@ async Task StartSending(WebSocket ws, Func<string> handler, int updatePeriod)
 }
 
 app.Run();
+
+// WebApplicationFactory requires this to be added :(
+public partial class Program { }
