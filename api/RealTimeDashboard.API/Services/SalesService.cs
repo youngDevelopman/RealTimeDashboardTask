@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
+using RealTimeDashboard.API.Configuration;
 using RealTimeDashboard.API.Models;
 using RealTimeDashboard.API.Services.Interfaces;
 

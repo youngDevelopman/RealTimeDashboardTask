@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Routing.Constraints;
 using Microsoft.Extensions.Caching.Memory;
+using RealTimeDashboard.API.Configuration;
 using RealTimeDashboard.API.Models;
 using System.Text.Json;
 

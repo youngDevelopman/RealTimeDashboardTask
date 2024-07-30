@@ -1,4 +1,4 @@
-﻿namespace RealTimeDashboard.API
+﻿namespace RealTimeDashboard.API.Configuration
 {
     public static class Constants
     {
