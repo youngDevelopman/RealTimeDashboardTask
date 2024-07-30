@@ -2,7 +2,7 @@
 {
     public class UpdateFrequenciesConfiguration
     {
-        // Configuration is being passed in seconds, but we store it in milliseconds
+        // Configuration is being passed in seconds, but we store it in milliseconds, because most of the time-related functions accept ms
         private int _activeUsers = 10 * 1000;
         private int _totalSales = 10 * 1000;
         private int _topSellingProducts = 30 * 1000;
