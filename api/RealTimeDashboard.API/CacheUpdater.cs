@@ -13,7 +13,7 @@ namespace RealTimeDashboard.API
         {
             _memoryCache = memoryCache;
             _logger = logger;
-            _memoryCache.Set("active-users", 50);
+            _memoryCache.Set(Constants.ACTIVE_USERS_AMOUNT_CACHE_KEY, 50);
             _memoryCache.Set(Constants.TOTAL_SALES_AMOUNT_CACHE_KEY, 120.0F);
         }
 
